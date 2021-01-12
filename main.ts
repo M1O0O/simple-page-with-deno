@@ -14,13 +14,13 @@ Object.keys(routes.default).forEach(async (routeType: any) => {
     switch (routeType) {
         case "get":
             Object.keys(routes.default[routeType]).forEach(async route => {
-                var routeImported = await import(routes.default[routeType][route]);
+                var routeImported = await import("./Controller/get/" + routes.default[routeType][route] + ".ts");
                 router.get(route, routeImported.default.Main);
             });
             break;
         case "post":
             Object.keys(routes.default[routeType]).forEach(async route => {
-                var routeImported = await import(routes.default[routeType][route]);
+                var routeImported = await import("./Controller/post/" + routes.default[routeType][route] + ".ts");
                 router.post(route, routeImported.default.Main);
             });
             break;

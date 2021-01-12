@@ -2,9 +2,9 @@
 
 export default {
     "get": {
-        "/": "./Controller/get/Main.ts"
+        "/": "Main"
     },
     "post": {
-
+        "/PostTest": "Test"
     }
 };
