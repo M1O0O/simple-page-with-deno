@@ -2,12 +2,11 @@
 import { Application, Router, send, helpers } from "https://deno.land/x/oak/mod.ts";
 import * as fonctions from "./src/fonctions.ts";
 import * as sql from "./src/sql.ts";
-import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
 
 const router = new Router();
 const app = new Application();
-var encoder = new TextEncoder();
 
+var encoder = new TextEncoder();
 var routes: any = await import("./src/routes.ts");
 
 Object.keys(routes.default).forEach(async (routeType: any) => {
@@ -47,10 +46,9 @@ app.use(async (ctx: any, next) => {
         logIP += `[${new Date()}] ${ctx.request.headers.get("cf-connecting-ip")} -> ${ctx.request.url}\n`
         console.log(`[${new Date()}] ${ctx.request.headers.get("cf-connecting-ip")} -> ${ctx.request.url}`);
         try {
-            ctx.fonctions = await fonctions;
-            ctx.sql = sql;
-            ctx.helpers = helpers;
-            ctx.bcrypt = bcrypt;
+            ctx.libs.fonctions = fonctions;
+            ctx.libs.sql = sql;
+            ctx.libs.helpers = helpers;
             await next();
         } catch (error) {
             console.log(error)

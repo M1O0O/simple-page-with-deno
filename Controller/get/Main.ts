@@ -2,7 +2,7 @@
 
 export default {
     Main: async (ctx: any) => {
-        var HeaderFooter = await ctx.fonctions.HF(ctx);
-        ctx.response.body = await ctx.fonctions.Template("index", HeaderFooter.res);
+        var parameters = await ctx.libs.fonctions.HF(ctx);
+        ctx.response.body = await ctx.libs.fonctions.Template("index", parameters.res);
     },
 };

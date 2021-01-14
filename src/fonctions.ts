@@ -32,9 +32,9 @@ export async function Template(path: string, options: any): Promise<string> {
 }
 
 export async function HF(ctx: any) {
-    var header = ctx.fonctions.Template("HF/header", {
+    var header = ctx.libs.fonctions.Template("HF/header", {
 
-    }), footer = ctx.fonctions.Template("HF/footer", {
+    }), footer = ctx.libs.fonctions.Template("HF/footer", {
 
     })
 
