@@ -1,13 +1,20 @@
 // deno-lint-ignore-file
 import { Application, Router, send, helpers } from "https://deno.land/x/oak/mod.ts";
-import * as fonctions from "./src/fonctions.ts";
-import * as sql from "./src/sql.ts";
+import * as fonctions from "./libs/fonctions.ts";
+import * as sql from "./libs/sql.ts";
 
 const router = new Router();
 const app = new Application();
 
 var encoder = new TextEncoder();
 var routes: any = await import("./src/routes.ts");
+
+var libs: any = {};
+
+for await (const file of Deno.readDirSync("./libs")) {
+    var LibName: any = file.name.split(".", 1)[0];
+    libs[LibName] = await import(`./libs/${file.name}`)
+}
 
 Object.keys(routes.default).forEach(async (routeType: any) => {
     switch (routeType) {
@@ -46,9 +53,7 @@ app.use(async (ctx: any, next) => {
         logIP += `[${new Date()}] ${ctx.request.headers.get("cf-connecting-ip")} -> ${ctx.request.url}\n`
         console.log(`[${new Date()}] ${ctx.request.headers.get("cf-connecting-ip")} -> ${ctx.request.url}`);
         try {
-            ctx.libs.fonctions = fonctions;
-            ctx.libs.sql = sql;
-            ctx.libs.helpers = helpers;
+            ctx.libs = libs;
             await next();
         } catch (error) {
             console.log(error)
