@@ -1,7 +1,5 @@
 // deno-lint-ignore-file
 import { Application, Router, send, helpers } from "https://deno.land/x/oak/mod.ts";
-import * as fonctions from "./libs/fonctions.ts";
-import * as sql from "./libs/sql.ts";
 
 const router = new Router();
 const app = new Application();
